@@ -20,7 +20,6 @@
 #include <assert.h>
 
 #include "c_types_map.hpp"
-#include "cpu_depthwise_pd.hpp"
 #include "cpu_engine.hpp"
 #include "type_helpers.hpp"
 #include "utils.hpp"
@@ -77,44 +76,6 @@ private:
     void scale_shift_compute_vector(const Vmm &vmm_src, const Xbyak::Reg64& p_weights, const Xbyak::Reg64& p_bias, bool is_broadcast = false);
     void prelu_compute_vector(const Vmm &vmm_src, const Xbyak::Reg64& p_weights, const Xbyak::Reg64& p_bias, bool is_broadcast = false);
 };
-
-struct jit_uni_depthwise_kernel_f32;
-
-template <cpu_isa_t isa>
-struct jit_uni_depthwise_fwd_t : public cpu_primitive_t {
-    struct pd_t : public cpu_depthwise_fwd_pd_t {
-        pd_t(engine_t *engine, const depthwise_desc_t *adesc,
-                const primitive_attr_t *attr,
-                const depthwise_fwd_pd_t *hint_fwd_pd)
-            : cpu_depthwise_fwd_pd_t(engine, adesc, attr, hint_fwd_pd) {}
-
-        DECLARE_COMMON_PD_T(
-                JIT_IMPL_NAME_HELPER("jit:", isa, ""),
-                jit_uni_depthwise_fwd_t<isa>);
-
-        virtual status_t init() override;
-    };
-
-    jit_uni_depthwise_fwd_t(const pd_t *apd, const input_vector &inputs,
-                       const output_vector &outputs);
-    ~jit_uni_depthwise_fwd_t();
-
-    typedef typename prec_traits<data_type::f32>::type data_t;
-
-    virtual void execute(event_t *e) const
-    {
-        execute_forward();
-        e->set_state(event_t::ready);
-    }
-
-private:
-    void execute_forward() const;
-    const pd_t *pd() const { return (const pd_t *)primitive_t::pd(); }
-    jit_uni_depthwise_kernel_f32 *kernel_;
-    data_t *padded_weights_;
-    data_t *padded_bias_;
-};
-
 
 template <cpu_isa_t isa>
 struct jit_uni_dw_conv_row_f32: public jit_generator {

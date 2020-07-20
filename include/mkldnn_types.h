@@ -938,28 +938,6 @@ typedef struct {
     float alpha, beta;
 } mkldnn_eltwise_desc_t;
 
-/** A descriptor of a channel-wise operation. */
-typedef struct {
-    /** The kind of primitive. Used for self identifying the primitive
-     * descriptor. Must be #mkldnn_depthwise. */
-    mkldnn_primitive_kind_t primitive_kind;
-    /** The kind of propagation. Possible values: #mkldnn_forward_training,
-     * #mkldnn_forward_inference, #mkldnn_backward, and #mkldnn_backward_data.
-     */
-    mkldnn_prop_kind_t prop_kind;
-    /** The kind of depthwise algorithm. Possible values: #mkldnn_depthwise_scale_shift
-     * #mkldnn_depthwise_prelu */
-    mkldnn_alg_kind_t alg_kind;
-	/** Source memory descriptor. */
-	mkldnn_memory_desc_t src_desc;
-	/** Destination memory descriptor. */
-	mkldnn_memory_desc_t dst_desc;
-    /** Weights memory descriptor. */
-    mkldnn_memory_desc_t weights_desc;
-    /** Bias memory descriptor. */
-    mkldnn_memory_desc_t bias_desc;
-} mkldnn_depthwise_desc_t;
-
 /** A descriptor of a Softmax operation. */
 typedef struct {
     /** The kind of primitive. Used for self-identifying the primitive
@@ -1481,7 +1459,6 @@ typedef enum {
     mkldnn_query_inner_product_d, /**< inner product descriptor */
     mkldnn_query_rnn_d, /**< rnn descriptor */
     mkldnn_query_roi_pooling_d, /**< roi descriptor */
-    mkldnn_query_depthwise_d, /**< eltwise descriptor */
     mkldnn_query_binary_convolution_d, /**< binary convolution descriptor */
     mkldnn_query_quantization_d, /**< quantization descriptor */
     mkldnn_query_deformable_convolution_d, /**< deformable convolution descriptor */

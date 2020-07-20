@@ -1227,21 +1227,6 @@ mkldnn_status_t MKLDNN_API mkldnn_eltwise_backward_desc_init(
 
 /** @} */
 
-/** @addtogroup c_api_depthwise Depthwise
- * A primitive to compute channel wise operations like scale and shift
- * @{ */
-
-/** Initializes a @p depthwise_desc for forward propagation using @p prop_kind
- * (possible values are #mkldnn_forward_training or #mkldnn_forward_inference),
- * @p alg_kind algorithm, memory descriptor @p data_desc.
- * @sa mkldnn_depthwise_desc_t for details */
-mkldnn_status_t MKLDNN_API mkldnn_depthwise_forward_desc_init(
-        mkldnn_depthwise_desc_t *depthwise_desc, mkldnn_prop_kind_t prop_kind,
-        mkldnn_alg_kind_t alg_kind, const mkldnn_memory_desc_t *src_desc, const mkldnn_memory_desc_t *dst_desc,
-        const mkldnn_memory_desc_t *weights_desc, const mkldnn_memory_desc_t *bias_desc);
-
-/** @} */
-
 /** @addtogroup c_api_softmax Softmax
  * A primitive to perform softmax.
  *

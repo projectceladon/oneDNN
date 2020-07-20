@@ -369,7 +369,6 @@ namespace query {
     const query_t deconvolution_d = mkldnn_query_deconvolution_d;
     const query_t shuffle_d = mkldnn_query_shuffle_d;
     const query_t eltwise_d = mkldnn_query_eltwise_d;
-    const query_t depthwise_d = mkldnn_query_depthwise_d;
     const query_t softmax_d = mkldnn_query_softmax_d;
     const query_t pooling_d = mkldnn_query_pooling_d;
     const query_t lrn_d = mkldnn_query_lrn_d;
@@ -408,7 +407,6 @@ using lrn_desc_t = mkldnn_lrn_desc_t;
 using batch_normalization_desc_t = mkldnn_batch_normalization_desc_t;
 using inner_product_desc_t = mkldnn_inner_product_desc_t;
 using roi_pooling_desc_t = mkldnn_roi_pooling_desc_t;
-using depthwise_desc_t = mkldnn_depthwise_desc_t;
 using binary_convolution_desc_t = mkldnn_binary_convolution_desc_t;
 using quantization_desc_t = mkldnn_quantization_desc_t;
 using deformable_convolution_desc_t = mkldnn_deformable_convolution_desc_t;
@@ -436,7 +434,6 @@ struct op_desc_t {
         inner_product_desc_t inner_product;
         rnn_desc_t rnn;
         roi_pooling_desc_t roi_pooling;
-        depthwise_desc_t depthwise;
         binary_convolution_desc_t binary_convolution;
         quantization_desc_t quantization;
         deformable_convolution_desc_t deformable_convolution;
@@ -456,7 +453,6 @@ struct op_desc_t {
     DECL_CTOR_AND_CONVERTERS(shuffle_desc_t, shuffle);
     DECL_CTOR_AND_CONVERTERS(pooling_desc_t, pooling);
     DECL_CTOR_AND_CONVERTERS(eltwise_desc_t, eltwise);
-    DECL_CTOR_AND_CONVERTERS(depthwise_desc_t, depthwise);
     DECL_CTOR_AND_CONVERTERS(softmax_desc_t, softmax);
     DECL_CTOR_AND_CONVERTERS(lrn_desc_t, lrn);
     DECL_CTOR_AND_CONVERTERS(batch_normalization_desc_t, batch_normalization);

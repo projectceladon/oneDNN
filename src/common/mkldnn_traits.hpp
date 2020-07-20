@@ -69,7 +69,6 @@ PKIND_TRAITS_INST(convolution);
 PKIND_TRAITS_INST(deconvolution);
 PKIND_TRAITS_INST(shuffle);
 PKIND_TRAITS_INST(eltwise);
-PKIND_TRAITS_INST(depthwise);
 PKIND_TRAITS_INST(softmax);
 PKIND_TRAITS_INST(pooling);
 PKIND_TRAITS_INST(lrn);

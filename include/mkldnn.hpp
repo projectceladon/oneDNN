@@ -122,7 +122,6 @@ public:
         deconvolution = mkldnn_deconvolution,
         shuffle = mkldnn_shuffle,
         eltwise = mkldnn_eltwise,
-        depthwise = mkldnn_depthwise,
         softmax = mkldnn_softmax,
         pooling = mkldnn_pooling,
         lrn = mkldnn_lrn,
@@ -348,7 +347,6 @@ enum query {
     deconvolution_d = mkldnn_query_deconvolution_d,
     shuffle_d = mkldnn_query_shuffle_d,
     eltwise_d = mkldnn_query_eltwise_d,
-    depthwise_d = mkldnn_query_depthwise_d,
     softmax_d = mkldnn_query_softmax_d,
     pooling_d = mkldnn_query_pooling_d,
     lrn_d = mkldnn_query_lrn_d,
@@ -2613,73 +2611,6 @@ struct eltwise_backward : public primitive {
         error::wrap_c_api(mkldnn_primitive_create(&result,
                 aprimitive_desc.get(), inputs, outputs),
             "could not create a eltwise backward primitive");
-        reset(result);
-    }
-};
-
-/// @}
-
-/// @addtogroup cpp_api_depthwise Depthwise
-/// @{
-
-struct depthwise_forward : public primitive {
-    struct desc {
-        mkldnn_depthwise_desc_t data;
-
-        desc(prop_kind aprop_kind, algorithm alg_kind,
-             const memory::desc &src_desc, const memory::desc &dst_desc, const memory::desc &weights_desc,
-             const memory::desc &bias_desc) {
-            error::wrap_c_api(mkldnn_depthwise_forward_desc_init(&data,
-                                                                 mkldnn::convert_to_c(aprop_kind),
-	                                                             mkldnn::convert_to_c(alg_kind),
-	                                                             &src_desc.data, &dst_desc.data,
-                                                                 &weights_desc.data, &bias_desc.data),
-                              "could not create a depthwise forward descriptor");
-        }
-
-        desc(prop_kind aprop_kind, algorithm alg_kind,
-             const memory::desc &src_desc, const memory::desc &dst_desc, const memory::desc &weights_desc) {
-            error::wrap_c_api(mkldnn_depthwise_forward_desc_init(&data,
-                                                                 mkldnn::convert_to_c(aprop_kind),
-                                                                 mkldnn::convert_to_c(alg_kind),
-                                                                 &src_desc.data, &dst_desc.data,
-                                                                 &weights_desc.data, nullptr),
-                              "could not create a depthwise forward descriptor");
-        }
-    };
-
-    struct primitive_desc : public mkldnn::primitive_desc {
-        primitive_desc(const desc &desc, const engine &e)
-            : mkldnn::primitive_desc(&desc.data, nullptr, e, nullptr) {}
-
-        primitive_desc(const desc &desc, const primitive_attr &attr, const engine &e)
-            : mkldnn::primitive_desc(&desc.data, &attr, e, nullptr) {}
-
-        REG_QUERY_MPD(src, src, 0);
-        REG_QUERY_MPD(dst, dst, 0);
-    };
-
-    depthwise_forward(const primitive_desc &aprimitive_desc,
-                      const primitive::at &src, const primitive::at &weights,
-                      const primitive::at &bias, const memory &dst) {
-        mkldnn_primitive_t result = nullptr;
-        mkldnn_primitive_at_t inputs[] = { src.data, weights.data, bias.data };
-        const_mkldnn_primitive_t outputs[] = { dst.get() };
-        error::wrap_c_api(mkldnn_primitive_create(&result,
-                                                  aprimitive_desc.get(), inputs, outputs),
-                          "could not create a depthwise forward primitive");
-        reset(result);
-    }
-
-    depthwise_forward(const primitive_desc &aprimitive_desc,
-                      const primitive::at &src, const primitive::at &weights,
-                      const memory &dst) {
-        mkldnn_primitive_t result = nullptr;
-        mkldnn_primitive_at_t inputs[] = { src.data, weights.data };
-        const_mkldnn_primitive_t outputs[] = { dst.get() };
-        error::wrap_c_api(mkldnn_primitive_create(&result,
-                                                  aprimitive_desc.get(), inputs, outputs),
-                          "could not create a depthwise forward primitive");
         reset(result);
     }
 };

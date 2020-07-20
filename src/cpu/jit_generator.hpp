@@ -840,6 +840,62 @@ public:
             const Xbyak::Operand &op, int cmp_predicate) {
         vcmpps(x1, x2, op, cmp_predicate);
     }
+    
+    void uni_vpmovsxwd(const Xbyak::Xmm &x, const Xbyak::Operand &op) {
+        pmovsxwd(x, op);
+    }
+    void uni_vpmovsxwd(const Xbyak::Ymm &x, const Xbyak::Operand &op) {
+        vpmovsxwd(x, op);
+    }
+
+    void uni_vpmovzxwd(const Xbyak::Xmm &x, const Xbyak::Operand &op) {
+        pmovzxwd(x, op);
+    }
+    void uni_vpmovzxwd(const Xbyak::Ymm &x, const Xbyak::Operand &op) {
+        vpmovzxwd(x, op);
+    }
+
+    void uni_vpinsrb(const Xbyak::Xmm &x1, const Xbyak::Xmm &x2,
+            const Xbyak::Operand &op, const int imm) {
+        assert(x1.getIdx() == x2.getIdx());
+        pinsrb(x1, op, imm);
+    }
+
+    void uni_vpinsrb(const Xbyak::Ymm &x1, const Xbyak::Ymm &x2,
+            const Xbyak::Operand &op, const int imm) {
+        vpinsrb(x1, x2, op, imm);
+    }
+
+    void uni_vpextrb(
+            const Xbyak::Operand &op, const Xbyak::Xmm &x, const int imm) {
+        pextrb(op, x, imm);
+    }
+
+    void uni_vpextrb(
+            const Xbyak::Operand &op, const Xbyak::Ymm &x, const int imm) {
+        vpextrb(op, x, imm);
+    }
+
+    void uni_vpinsrw(const Xbyak::Xmm &x1, const Xbyak::Xmm &x2,
+            const Xbyak::Operand &op, const int imm) {
+        assert(x1.getIdx() == x2.getIdx());
+        pinsrw(x1, op, imm);
+    }
+
+    void uni_vpinsrw(const Xbyak::Ymm &x1, const Xbyak::Ymm &x2,
+            const Xbyak::Operand &op, const int imm) {
+        vpinsrb(x1, x2, op, imm);
+    }
+
+    void uni_vpextrw(
+            const Xbyak::Operand &op, const Xbyak::Xmm &x, const int imm) {
+        pextrw(op, x, imm);
+    }
+
+    void uni_vpextrw(
+            const Xbyak::Operand &op, const Xbyak::Ymm &x, const int imm) {
+        vpextrw(op, x, imm);
+    }
 
     void uni_vpackusdw(const Xbyak::Xmm &x1, const Xbyak::Xmm &x2, const Xbyak::Operand &op) {
         assert(x1.getIdx() == x2.getIdx());
@@ -879,6 +935,30 @@ public:
     }
     void uni_vpmaxub(const Xbyak::Ymm &x1, const Xbyak::Ymm &x2, const Xbyak::Operand &op) {
         vpmaxub(x1, x2, op);
+    }
+
+    void uni_vpminsd(const Xbyak::Xmm &x1, const Xbyak::Xmm &x2, const Xbyak::Operand &op) {
+        assert(x1.getIdx() == x2.getIdx());
+        pminsd(x1, op);
+    }
+    void uni_vpminsd(const Xbyak::Ymm &x1, const Xbyak::Ymm &x2, const Xbyak::Operand &op) {
+        vpminsd(x1, x2, op);
+    }
+
+    void uni_vpminsb(const Xbyak::Xmm &x1, const Xbyak::Xmm &x2, const Xbyak::Operand &op) {
+        assert(x1.getIdx() == x2.getIdx());
+        pminsb(x1, op);
+    }
+    void uni_vpminsb(const Xbyak::Ymm &x1, const Xbyak::Ymm &x2, const Xbyak::Operand &op) {
+        vpminsb(x1, x2, op);
+    }
+
+    void uni_vpminub(const Xbyak::Xmm &x1, const Xbyak::Xmm &x2, const Xbyak::Operand &op) {
+        assert(x1.getIdx() == x2.getIdx());
+        pminub(x1, op);
+    }
+    void uni_vpminub(const Xbyak::Ymm &x1, const Xbyak::Ymm &x2, const Xbyak::Operand &op) {
+        vpminub(x1, x2, op);
     }
 
     void uni_vpmaddubsw(const Xbyak::Xmm &x1, const Xbyak::Xmm &x2, const Xbyak::Operand &op) {
