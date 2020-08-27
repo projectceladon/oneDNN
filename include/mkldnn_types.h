@@ -623,6 +623,8 @@ typedef enum {
     mkldnn_eltwise_log = 0x20,
     /** Eltwise: mish */
     mkldnn_eltwise_mish = 0x1f0,
+    /** Eltwise: hsigmoid */
+    mkldnn_eltwise_hsigmoid = 0x1f1,
     /** Max pooling */
     mkldnn_pooling_max = 0x1ff,
     /** Average pooling include padding */

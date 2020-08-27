@@ -94,7 +94,7 @@ status_t post_ops_t::append_eltwise(float scale, alg_kind_t alg, float alpha,
             eltwise_square, eltwise_abs, eltwise_sqrt, eltwise_linear,
             eltwise_bounded_relu, eltwise_soft_relu, eltwise_logistic,
             eltwise_exp, eltwise_gelu, eltwise_clamp, eltwise_not, eltwise_swish,
-            eltwise_hswish, eltwise_mish);
+            eltwise_hswish, eltwise_mish, eltwise_hsigmoid);
     if (!known_alg)
         return invalid_arguments;
 

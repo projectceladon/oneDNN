@@ -49,7 +49,7 @@ struct jit_uni_eltwise_injector_f32 {
                     eltwise_square, eltwise_abs, eltwise_sqrt, eltwise_linear,
                     eltwise_bounded_relu, eltwise_soft_relu, eltwise_logistic,
                     eltwise_exp, eltwise_gelu, eltwise_clamp, eltwise_swish,
-                    eltwise_hswish, eltwise_mish, eltwise_log));
+                    eltwise_hswish, eltwise_mish, eltwise_log, eltwise_hsigmoid));
         register_table_entries();
     }
 
@@ -137,6 +137,7 @@ private:
     void hswish_compute_vector(const Vmm &vmm_src);
     void mish_compute_vector(const Vmm &vmm_src);
     void log_compute_vector(const Vmm &vmm_src);
+    void hsigmoid_compute_vector(const Vmm &vmm_src);
 
     void relu_prepare_table();
     void elu_prepare_table();

@@ -434,6 +434,7 @@ const char *mkldnn_alg_kind2str(mkldnn_alg_kind_t v) {
     if (v == mkldnn_eltwise_swish) return "eltwise_swish";
     if (v == mkldnn_eltwise_hswish) return "eltwise_hswish";
     if (v == mkldnn_eltwise_mish) return "eltwise_mish";
+    if (v == mkldnn_eltwise_hsigmoid) return "eltwise_hsigmoid";
     if (v == mkldnn_pooling_max) return "pooling_max";
     if (v == mkldnn_pooling_avg_include_padding) return "pooling_avg_include_padding";
     if (v == mkldnn_pooling_avg_exclude_padding) return "pooling_avg_exclude_padding";

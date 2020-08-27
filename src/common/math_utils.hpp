@@ -310,6 +310,13 @@ inline U mish_fwd(T s) {
     return (U)(s * ::tanhf(v));
 }
 
+template <typename T,
+        typename U = typename utils::remove_reference<T>::type>
+inline U hsigmoid_fwd(T s) {
+    float v = s + 3.0f;
+    return (U)(v < 0.0f ? 0.0f : v > 6.0f ? 1.0f : v / 6.0f);
+}
+
 template <typename T, typename A,
          typename U = typename utils::remove_reference<T>::type>
 inline U scale_shift_fwd(T s_val, A w_val, A b_val) {
@@ -327,8 +334,9 @@ inline bool eltwise_fwd_preserves_zero(alg_kind_t alg, bool jit_impl = false) {
     using namespace utils;
     const bool preserves_zero = true
         && !one_of(alg, eltwise_linear, eltwise_soft_relu, eltwise_logistic,
-                eltwise_exp, eltwise_clamp, eltwise_not, eltwise_swish)
-        && IMPLICATION(jit_impl, !one_of(alg, eltwise_elu, eltwise_tanh, eltwise_clamp, eltwise_not, eltwise_swish));
+                eltwise_exp, eltwise_clamp, eltwise_not, eltwise_swish, eltwise_hsigmoid)
+        && IMPLICATION(jit_impl, !one_of(alg, eltwise_elu, eltwise_tanh, eltwise_clamp,
+                                             eltwise_not, eltwise_swish, eltwise_hsigmoid));
     return preserves_zero;
 }
 
