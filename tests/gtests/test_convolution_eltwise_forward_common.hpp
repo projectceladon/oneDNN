@@ -108,6 +108,7 @@ void compute_ref_conv_eltwise_fwd(const test_convolution_sizes_t &c,
             case eltwise_gelu: d = gelu_fwd(d); break;
             case eltwise_clamp: d = clamp_fwd(d, elt_alpha, elt_beta); break;
             case eltwise_swish: d = swish_fwd(d, elt_alpha); break;
+            case eltwise_mish: d = mish_fwd(d); break;
             default: assert(!"unknown alg_kind");
             }
         }

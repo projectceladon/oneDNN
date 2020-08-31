@@ -174,6 +174,11 @@ T swish_bwd(T dd, T s, A alpha) {
     return dd * (v + s * alpha * v * (1 - v));
 }
 
+template <typename T>
+T mish_fwd(T s) {
+    return (T)(s * ::tanhf(::log1pf(::expf(float(s)))));
+}
+
 struct eltwise_test_params {
     engine::kind engine_kind;
     algorithm alg_kind;
@@ -220,6 +225,7 @@ void ref_eltwise_fwd(const eltwise_test_params &p,
         case eltwise_clamp:       ref_d = clamp_fwd(s, p.alpha, p.beta);  break;
         case eltwise_not:         ref_d = not_fwd(s);                     break;
         case eltwise_swish:       ref_d = swish_fwd(s, p.alpha);          break;
+        case eltwise_mish:       ref_d = mish_fwd(s);          break;
         default: assert(!"unknown alg_kind");
         }
         dst_data[i] = ref_d;

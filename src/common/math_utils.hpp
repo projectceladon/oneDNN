@@ -306,8 +306,9 @@ inline U hswish_fwd(T s) {
 template <typename T,
         typename U = typename utils::remove_reference<T>::type>
 inline U mish_fwd(T s) {
-    float v = ::log1pf(::expf((float)s));
-    return (U)(s * ::tanhf(v));
+    float eX = ::expf(std::min((float)s, 20.0f));
+    float v = (eX + 2.0f) * eX;
+    return (U)((s * v) / (v + 2.0f));
 }
 
 template <typename T, typename A,
