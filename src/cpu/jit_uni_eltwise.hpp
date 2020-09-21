@@ -49,7 +49,8 @@ struct jit_uni_eltwise_injector_f32 {
                     eltwise_square, eltwise_abs, eltwise_sqrt, eltwise_linear,
                     eltwise_bounded_relu, eltwise_soft_relu, eltwise_logistic,
                     eltwise_exp, eltwise_gelu, eltwise_clamp, eltwise_swish,
-                    eltwise_hswish, eltwise_mish, eltwise_log));
+                    eltwise_hswish, eltwise_mish, eltwise_log, eltwise_round_half_to_even,
+                    eltwise_round_half_away_from_zero));
         register_table_entries();
     }
 
@@ -84,6 +85,7 @@ private:
         _cmp_lt_os = jit_generator::_cmp_lt_os,
         _cmp_le_os = jit_generator::_cmp_le_os,
         _cmp_nle_us = jit_generator::_cmp_nle_us,
+        _op_near = jit_generator::_op_near,
         _op_floor = jit_generator::_op_floor,
     };
 
@@ -137,6 +139,8 @@ private:
     void hswish_compute_vector(const Vmm &vmm_src);
     void mish_compute_vector(const Vmm &vmm_src);
     void log_compute_vector(const Vmm &vmm_src);
+    void round_half_to_even_compute_vector(const Vmm &vmm_src);
+    void round_half_away_from_zero_compute_vector(const Vmm &vmm_src);
 
     void relu_prepare_table();
     void elu_prepare_table();
@@ -149,6 +153,7 @@ private:
     void hswish_prepare_table();
     void mish_prepare_table();
     void log_prepare_table();
+    void round_half_away_from_zero_prepare_table();
 
     enum key_t {
         alpha = 0, // alpha argument

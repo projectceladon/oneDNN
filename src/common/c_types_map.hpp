@@ -82,6 +82,8 @@ namespace alg_kind {
     const alg_kind_t eltwise_swish = mkldnn_eltwise_swish;
     const alg_kind_t eltwise_hswish = mkldnn_eltwise_hswish;
     const alg_kind_t eltwise_mish = mkldnn_eltwise_mish;
+    const alg_kind_t eltwise_round_half_to_even = mkldnn_eltwise_round_half_to_even;
+    const alg_kind_t eltwise_round_half_away_from_zero = mkldnn_eltwise_round_half_away_from_zero;
     const alg_kind_t eltwise_log = mkldnn_eltwise_log;
     const alg_kind_t depthwise_scale_shift = mkldnn_depthwise_scale_shift;
     const alg_kind_t depthwise_prelu = mkldnn_depthwise_prelu;

@@ -280,6 +280,8 @@ enum algorithm {
     eltwise_swish = mkldnn_eltwise_swish,
     eltwise_hswish = mkldnn_eltwise_hswish,
     eltwise_mish = mkldnn_eltwise_mish,
+    eltwise_round_half_to_even = mkldnn_eltwise_round_half_to_even,
+    eltwise_round_half_away_from_zero = mkldnn_eltwise_round_half_away_from_zero,
     depthwise_scale_shift = mkldnn_depthwise_scale_shift,
     depthwise_prelu = mkldnn_depthwise_prelu,
     lrn_across_channels = mkldnn_lrn_across_channels,
