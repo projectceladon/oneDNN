@@ -567,8 +567,11 @@ void gemm_convolution_bwd_data_t::execute_backward_data() const {
     const size_t src_step_to_clean = jcp.ic * jcp.ih * jcp.iw * jcp.id;
     const memory_desc_wrapper diff_src_d(pd()->diff_src_pd());
     const memory_desc_wrapper diff_dst_d(pd()->diff_dst_pd());
-    const size_t src_step = diff_src_d.blk_off(1) / jcp.ngroups;
-    const size_t dst_step = diff_dst_d.blk_off(1) / jcp.ngroups;
+    const size_t src_step = (diff_src_d.blk_off(1) - diff_src_d.off_l(0)) / jcp.ngroups;
+    const size_t dst_step = (diff_dst_d.blk_off(1) - diff_dst_d.off_l(0)) / jcp.ngroups;
+    diff_src += diff_src_d.off_l(0);
+    diff_dst += diff_dst_d.off_l(0);
+
     const size_t weights_g_size = jcp.ic * jcp.oc * jcp.ks;
 
     const int m = jcp.os;
